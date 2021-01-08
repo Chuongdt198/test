@@ -1,39 +1,73 @@
-<?php
+<?php 
 session_start();
-if (isset($_POST['sigin'])) {
+// xóa bỏ tài khoản đang đăng nhập
+unset($_SESSION['AUTH']);
 
-    //Nhúng file kết nối với database
-    include('connect.php');
-    
-    // lấy dữ liệu người dùng nhập vào
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    
-    // kiểm tra dữ liệu nhập vào đã đủ chưa
-    
-    if (!$email || !$password) {
-        echo "vui lòng nhập đầy đủ thông tin";
-        exit;
-    }
-    
-    $password = md5($password);
-    // kiểm tra dữ liệu nhập vào có tồn tại không
-    
-    // $sql = "
-    //     SELECT email, password 
-    //     FROM users
-    //     WHERE 
-    //         email = '$email',
-    //         password = '$password' 
-    // ";
-    // var_dump($sql);
-    
-    $query = mysql("SELECT email, password FROM users WHERE email='$email'");
-        if (mysql_num_rows($query) == 0) {
-            echo "Tên đăng nhập này không tồn tại. Vui lòng kiểm tra lại. <a href='javascript: history.go(-1)'>Trở lại</a>";
-            exit;
-        }
+// lấy email và password từ form login gửi lên
+$email = $_POST['email'];
+$password = $_POST['password'];
+
+// thực hiện validate dữ liệu
+$emailerr = "";
+$passworderr = "";
+
+// kiểm tra rỗng
+if(strlen($email) == 0){
+    $emailerr = "Vui lòng nhập email";
 }
-else{
-    echo 'sai';
+
+// số lượng ký tự phải >= 6
+if($emailerr == "" && strlen($email) < 6){
+	$emailerr = "Không đúng định dạng email";
 }
+
+// // chỉ cho phép có 1 ký tự @
+// $countSpecialChar = 0;
+// for($i = 0; $i < strlen($formEmail); $i++){
+// 	if($formEmail[$i] == "@"){
+// 		$countSpecialChar ++;
+// 	}
+// }
+
+// if($emailErr == "" && $countSpecialChar != 1){
+// 	$emailErr = "Không đúng định dạng email (chỉ có 1 ký tự @)";
+// }
+
+
+// if(strlen($formPassword) == 0){
+// 	$pwdErr = "Vui lòng nhập mật khẩu";
+// }
+
+// if($emailErr != "" || $pwdErr != ""){
+// 	header("location: login.php?emailErr=$emailErr&pwdErr=$pwdErr");
+// 	die;
+// }
+
+$selectUserQuery = "select * 
+					from users 
+					where email = '$email'
+						and password = '$password'";
+$host = "localhost";
+$dbname = "testphp";
+$dbUsername = "root";
+$dbPass = "";
+
+$connect = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", 
+					$dbUsername, 
+					$dbPass);
+$stmt = $connect->prepare($selectUserQuery);
+$stmt->execute();
+$user = $stmt->fetch();
+
+if($user === false){
+	header('location: sigin.html?msg=Sai thông tin tài khoản/mật khẩu');	
+	die;
+}
+
+$_SESSION['AUTH'] = $user;
+
+// điều hướng về trang dashboard
+header('location: dashboard.php');
+
+
+ ?>
