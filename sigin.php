@@ -1,5 +1,7 @@
 <?php 
 session_start();
+
+require_once "./connect.php";
 // xóa bỏ tài khoản đang đăng nhập
 unset($_SESSION['AUTH']);
 
@@ -43,20 +45,10 @@ if($emailerr == "" && strlen($email) < 6){
 // 	die;
 // }
 
-$selectUserQuery = "select * 
-					from users 
-					where email = '$email'
-						and password = '$password'";
-$host = "localhost";
-$dbname = "testphp";
-$dbUsername = "root";
-$dbPass = "";
 
-$connect = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", 
-					$dbUsername, 
-					$dbPass);
+$selectUserQuery = "select *  from users  where email = ? and password = ?";
 $stmt = $connect->prepare($selectUserQuery);
-$stmt->execute();
+$stmt->execute([$email, $password]);
 $user = $stmt->fetch();
 
 if($user === false){

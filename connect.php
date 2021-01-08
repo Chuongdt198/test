@@ -1,13 +1,12 @@
 <?php
 //kết nối csdl vào php
-$hostname = "localhost";
-$username = "root";
-$password = "";
+$host = "localhost";
 $dbname = "testphp";
-// Kết nối database
-$connect = new mysqli($hostname, $username, $password, $dbname);
-//Nếu kết nối bị lỗi thì xuất báo lỗi và thoát.
-if ($connect->connect_error) {
-    die("Không kết nối :" . $conn->connect_error);
-    exit();
+$dbUsername = "root";
+$dbPass = "";
+
+$connect = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $dbUsername, $dbPass);
+if(!$connect){
+    echo 'kết nối không thành công';
+    exit;
 }
