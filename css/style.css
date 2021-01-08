@@ -1,0 +1,20 @@
+/* sigin */
+.sigup{
+    max-width: 40% !important;
+}
+.row h1{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+    padding: 30px 10px;
+}
+.email{
+    padding: 10px 0;
+}
+.submit{
+    padding: 30px 0;
+    text-align: center;
+}
+.submit button{
+    margin-left: 20px;
+}
