@@ -32,8 +32,8 @@ $sql = "
 // Thông báo đăng ký
 
 if(mysqli_query($connect, $sql)) {
-    echo "Quá trình đăng ký thành công. <a href='sigup.html'>Về trang chủ</a>"; 
+    header("Location: index.html");
 }
 else{
-    echo 'đăng ký thất bại';
+    echo 'Faile';
 }
