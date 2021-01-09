@@ -1,65 +1,46 @@
-<?php 
-session_start();
+<!DOCTYPE html>
+<html lang="en">
 
-require_once "./connect.php";
-// xóa bỏ tài khoản đang đăng nhập
-unset($_SESSION['AUTH']);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Login</title>
+</head>
 
-// lấy email và password từ form login gửi lên
-$email = $_POST['email'];
-$password = $_POST['password'];
+<body>
+    <form action="post_login.php" method="post">
+        <div class="container">
+            <div class="form-group">
+                <h1>Login</h1>
+                <?php if (isset($_GET['msg'])): ?>
+                    <h4 style="color: red; font-style: italic"><?php echo $_GET['msg'] ?></h4>
+                <?php endif ?>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" type="text" class="form-control" name="email" placeholder="example@">
+                <br>
+                <?php if (isset($_GET['emailerr'])): ?>
+                    <h5 style="font-size: 1em ; color: red; font-style: italic"><?php echo $_GET['emailerr'] ?></h5>
+                <?php endif ?>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" class="form-control" name="password">
+                <br>
+                <?php if (isset($_GET['pwderr'])): ?>
+                    <h4 style="font-size: 1em ; color: red; font-style: italic"><?php echo $_GET['pwderr'] ?></h4>
+                <?php endif ?>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">Login</button>
+                <a href="../register/register.html" class="btn btn-outline-danger">Register</a>
+            </div>
+        </div>
+    </form>
+</body>
 
-// thực hiện validate dữ liệu
-$emailerr = "";
-$passworderr = "";
-
-// kiểm tra rỗng
-if(strlen($email) == 0){
-    $emailerr = "Vui lòng nhập email";
-}
-
-// số lượng ký tự phải >= 6
-if($emailerr == "" && strlen($email) < 6){
-	$emailerr = "Không đúng định dạng email";
-}
-
-// // chỉ cho phép có 1 ký tự @
-// $countSpecialChar = 0;
-// for($i = 0; $i < strlen($formEmail); $i++){
-// 	if($formEmail[$i] == "@"){
-// 		$countSpecialChar ++;
-// 	}
-// }
-
-// if($emailErr == "" && $countSpecialChar != 1){
-// 	$emailErr = "Không đúng định dạng email (chỉ có 1 ký tự @)";
-// }
-
-
-// if(strlen($formPassword) == 0){
-// 	$pwdErr = "Vui lòng nhập mật khẩu";
-// }
-
-// if($emailErr != "" || $pwdErr != ""){
-// 	header("location: login.php?emailErr=$emailErr&pwdErr=$pwdErr");
-// 	die;
-// }
-
-
-$selectUserQuery = "select *  from users  where email = ? and password = ?";
-$stmt = $connect->prepare($selectUserQuery);
-$stmt->execute([$email, $password]);
-$user = $stmt->fetch();
-
-if($user === false){
-	header('location: sigin.html?msg=Sai thông tin tài khoản/mật khẩu');	
-	die;
-}
-
-$_SESSION['AUTH'] = $user;
-
-// điều hướng về trang dashboard
-header('location: dashboard.php');
-
-
- ?>
+</html>
