@@ -1,41 +1,49 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
-//Nhúng file kết nối với database
-require_once "./connect.php";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Register</title>
+</head>
 
-// $error = array();
-// $data = array();
+<body>
+    <form action="post_register.php" method="post">
+        <div class="container">
+            <div class="form-group">
+                <h1>Register</h1>
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name" type="text" class="form-control" name="name" placeholder="Nguyễn Văn A">
+                <?php if (isset($_GET['nameerr'])): ?>
+                    <h5 style="font-size: 1em ; color: red; font-style: italic"><?php echo $_GET['nameerr'] ?></h5>
+                <?php endif ?>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" type="text" class="form-control" name="email" placeholder="example@gmail.com">
+                <?php if (isset($_GET['emailerr'])): ?>
+                    <h5 style="font-size: 1em ; color: red; font-style: italic"><?php echo $_GET['emailerr'] ?></h5>
+                <?php endif ?>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" class="form-control" name="password" placeholder="******">
+                <br>
+                <?php if (isset($_GET['pwderr'])): ?>
+                    <h5 style="font-size: 1em ; color: red; font-style: italic"><?php echo $_GET['pwderr'] ?></h5>
+                <?php endif ?>
+            </div>
+            <div class="form-group">
+                <a href="../login/login.php" class="btn btn-outline-danger">Login</a>
+                <button class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </form>
+</body>
 
-// lấy dữ liệu người dùng nhập vào
-$email = $_POST['email'];
-$password = $_POST['password'];
-
-// mã hóa mật khẩu
-$password = md5($password);
-// kiểm tra dữ liệu nhập vào đã đủ chưa
-if (!$email || !$password) {
-    echo "vui lòng nhập đầy đủ thông tin";
-    exit;
-}
-// if (!$password){
-//     echo 'Vui lòng nhập password';
-//     exit;
-// }
-// kiểm tra email nhập vào có đúng định dạng không
-// function isEmail($str){
-//     return (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
-// }
-// if (!isEmail($data['email'])){
-//     $error['email'] = 'Email không đúng định dạng';
-// }
-
-
-// lưu thông tin
-$insertUserQuery = "INSERT INTO users(`email`, `password`) VALUE(?, ?)";
-
-$stmt = $connect->prepare($insertUserQuery);
-$stmt->execute([$email, $password]);
-
-// Thông báo đăng ký
-header("Location: index.html");
-
+</html> 
