@@ -72,5 +72,5 @@ $user = $stmt->fetch();
 $_SESSION['AUTH'] = $user;
 
 // Thông báo đăng ký
-header("Location: ../index.php");
+header("Location: ../home/index.php");
 

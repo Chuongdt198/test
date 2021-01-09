@@ -11,6 +11,6 @@ session_start();
 <body>
     Hello: <?php echo $_SESSION['AUTH']['name'] ?>
     <h1>Success</h1>
-    <a href='./login/login.html'>Log out</a>
+    <a href='../login/login.php'>Log out</a>
 </body>
 </html>
