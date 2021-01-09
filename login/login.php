@@ -37,7 +37,7 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-primary">Login</button>
-                <a href="../register/register.html" class="btn btn-outline-danger">Register</a>
+                <a href="../register/register.php" class="btn btn-outline-danger">Register</a>
             </div>
         </div>
     </form>

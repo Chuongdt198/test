@@ -13,17 +13,20 @@ $pwderr = "";
 
 // kiểm tra rỗng
 if(strlen($email) == 0){
-    $emailerr = "Vui lòng nhập email";
+    $emailerr = "Email không được để trống";
 }
-
+// kiểm tra định dạng email
 $regex = "/([a-z0-9_]+|[a-z0-9_]+\.[a-z0-9_]+)@(([a-z0-9]|[a-z0-9]+\.[a-z0-9]+)+\.([a-z]{2,4}))/i"; 
 if(!preg_match($regex, $email)) { 
-    $emailerr = "Email không đúng định dạng vui lòng nhập lại"; 
+    $emailerr = "Email không đúng định dạng, vui lòng nhập lại"; 
 } 
 
+// kiểm tra rỗng
 if(strlen($password) == 0){
-	$pwderr = "Vui lòng nhập mật khẩu";
+	$pwderr = "Mật khẩu không được để trống";
 }
+
+
 if($emailerr != "" || $pwderr != ""){
 	header("location: login.php?emailerr=$emailerr&pwderr=$pwderr");
 	die;
