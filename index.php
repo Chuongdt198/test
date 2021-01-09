@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +9,8 @@
     <title>Home</title>
 </head>
 <body>
+    Hello: <?php echo $_SESSION['AUTH']['name'] ?>
     <h1>Success</h1>
-    <a href='sigup.html'>Log out</a>
+    <a href='./login/login.html'>Log out</a>
 </body>
 </html>
