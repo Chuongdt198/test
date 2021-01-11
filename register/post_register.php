@@ -9,7 +9,12 @@ require_once "./../connect.php";
 // lấy dữ liệu người dùng nhập vào
 $name = $_POST['name'];
 $email = $_POST['email'];
+$phone = $_POST['phone'];
+$birthday = $_POST['birthday'];
 $password = $_POST['password'];
+$address = $_POST['address'];
+$gender = $_POST['gender'];
+// $avatar = $_FILES['avatar'];
 
 
 // thực hiện validate dữ liệu
@@ -38,7 +43,7 @@ if(strlen($password) == 0){
 }
 
 
-if($nameerr != "" || $emailerr != "" || $pwdRrr != ""){
+if($nameerr != "" || $emailerr != "" || $pwderr != ""){
 	header("location: register.php?nameerr=$nameerr&emailerr=$emailerr&pwderr=$pwderr");
 	die;
 }
@@ -60,9 +65,9 @@ if($user){
 
 
 // lưu thông tin
-$insertUserQuery = "INSERT INTO users(`name`, `email`, `password`) VALUE(?, ?, ?)";
+$insertUserQuery = "INSERT INTO users(`name`, `email`, `phone`, `birthday`, `password`, `address`, `gender`) VALUE(?, ?, ?, ?, ? ,? ,?)";
 $stmt = $connect->prepare($insertUserQuery);
-$stmt->execute([$name, $email, $password]);
+$stmt->execute([$name, $email, $phone, $birthday, $password, $address, $gender]);
 
 // in thông tin user
 $checkEmailQuery = "SELECT `name` FROM users WHERE `name` = ?";
