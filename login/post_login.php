@@ -64,8 +64,8 @@ if($user === false){
 
 $_SESSION['AUTH'] = $user;
 
-// điều hướng về trang dashboard
-header('location: ../home/index.php');
+// điều hướng về trang chủ
+header('location: ../dashboard/index.php');
 
 
  ?>
