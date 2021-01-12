@@ -20,31 +20,40 @@ $gender = $_POST['gender'];
 // thực hiện validate dữ liệu
 $nameerr = "";
 $emailerr = "";
+$phoneerr = "";
+$birthdayerr = "";
 $pwderr = "";
-
+$adrerr = "";
+$sexerr = "";
 // kiểm tra rỗng
 if(strlen($name) == 0){
 	$nameerr = "Tên không được để trống";
 }
 
-// kiểm tra rỗng
-if(strlen($email) == 0){
-    $emailerr = "Email không được để trống";
-}
 // kiểm tra định dạng email
 $regex = "/([a-z0-9_]+|[a-z0-9_]+\.[a-z0-9_]+)@(([a-z0-9]|[a-z0-9]+\.[a-z0-9]+)+\.([a-z]{2,4}))/i"; 
 if(!preg_match($regex, $email)) { 
     $emailerr = "Email không đúng định dạng, vui lòng nhập lại"; 
 } 
-
+// kiểm tra rỗng
+if(strlen($phone) == 0){
+	$phoneerr = "Số điện thoại không được để trống";
+}// kiểm tra rỗng
+if(strlen($birthday) == 0){
+	$birthdayerr = "Vui lòng chọn ngày sinh";
+}
 // kiểm tra rỗng
 if(strlen($password) == 0){
 	$pwderr = "Mật khẩu không được để trống";
 }
+// kiểm tra rỗng
+if(strlen($address) == 0){
+	$adrerr = "Địa chỉ không được để trống";
+}
 
 
-if($nameerr != "" || $emailerr != "" || $pwderr != ""){
-	header("location: register.php?nameerr=$nameerr&emailerr=$emailerr&pwderr=$pwderr");
+if($nameerr != "" || $emailerr != "" || $phoneerr != "" || $birthdayerr != "" || $pwderr != "" || $adrerr != ""){
+	header("location: register.php?nameerr=$nameerr&emailerr=$emailerr&phoneerr=$phoneerr&birthdayerr=$birthdayerr&pwderr=$pwderr&adrerr=$adrerr");
 	die;
 }
 

@@ -24,7 +24,7 @@
         </div>
         <div class="form-group col-md-6">
         <label>Email</label>
-        <input type="email" name="email" class="form-control" placeholder="Email">
+        <input type="text" name="email" class="form-control" placeholder="Email">
         <?php if (isset($_GET['emailerr'])): ?>
             <h5 style="font-size: 1em ; color: red; font-style: italic"><?php echo $_GET['emailerr'] ?></h5>
         <?php endif ?>
@@ -34,10 +34,16 @@
         <div class="form-group col-md-3">
         <label>Phone</label>
         <input type="number" name="phone" class="form-control" placeholder="Phone">
+        <?php if (isset($_GET['phoneerr'])): ?>
+            <h5 style="font-size: 1em ; color: red; font-style: italic"><?php echo $_GET['phoneerr'] ?></h5>
+        <?php endif ?>
         </div>
         <div class="form-group col-md-3">
         <label>Birthday</label>
         <input type="date" name="birthday" class="form-control" placeholder="Birthday">
+        <?php if (isset($_GET['birthdayerr'])): ?>
+            <h5 style="font-size: 1em ; color: red; font-style: italic"><?php echo $_GET['birthdayerr'] ?></h5>
+        <?php endif ?>
         </div>
         <div class="form-group col-md-6">
         <label>Password</label>
@@ -50,18 +56,22 @@
     <div class="form-group">
         <label >Address</label>
         <input type="text" name="address" class="form-control" placeholder="Ha Noi">
+        <?php if (isset($_GET['adrerr'])): ?>
+            <h5 style="font-size: 1em ; color: red; font-style: italic"><?php echo $_GET['adrerr'] ?></h5>
+        <?php endif ?>
     </div>
     <div class="form-group">
-    <label>Gender</label>
-    <select name="gender" class="form-control">
-        <option value="1">Male</option>
-        <option value="2">Female</option>
-        <option value="3">Other gender</option>
-    </select>
+        <label>Gender</label>
+        <select name="gender" class="form-control">
+            <option selected>Options ...</option>
+            <option value="1">Male</option>
+            <option value="2">Female</option>
+            <option value="3">Other gender</option>
+        </select>
     </div>
     <div class="form-group">
-    <label>Avatar</label>
-    <input type="file" class="form-control">
+        <label>Avatar</label>
+        <input type="file" class="form-control">
     </div>  
     <div class="form-group">
         <a href="../login/login.php" class="btn btn-outline-danger">Login</a>
