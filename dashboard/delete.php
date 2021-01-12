@@ -7,12 +7,12 @@ require_once "./../connect.php";
 $id = $_GET['id'];
 
 // câu lệnh xóa
-$deleteMenberQuery = "delete from menbers where id = $id";
-$stmt = $connect->prepare($deleteMenberQuery);
+$deleteProductQuery = "DELETE FROM products WHERE id = $id";
+$stmt = $connect->prepare($deleteProductQuery);
 
 $stmt->execute();
 
 // điều hướng về trang chủ
-header('location: index.php');
+header('location: product.php');
 
  ?>
