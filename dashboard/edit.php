@@ -4,16 +4,24 @@ require_once "./../connect.php";
 
 // Lấy id người dùng nhập vào
 $id = $_GET['id'];
+// var_dump($id);
+// die;
 
-// Lấy tất cả thông tin menber từ id
-$menberByIdQuery = "select * from menbers where id = $id";
+
+// Lấy tất cả thông tin sản phẩm từ id 
+$productByIdQuery = "SELECT * FROM products WHERE `id` = ?";
 
 // nạp cậu sql vào kết nối
-$stmt = $connect->prepare($menberByIdQuery);
+$stmt = $connect->prepare($productByIdQuery);
 // thực thi câu lệnh
-$stmt->execute();
+$stmt->execute([$id]);
 // Lấy dữ liệu từ csdl và gán cho 1 biến
 $menber = $stmt->fetch();
+// echo "<pre/>";
+// var_dump($menber['id']);
+// die;
+// var_dump($menber['style']);
+// die;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,48 +35,35 @@ $menber = $stmt->fetch();
 </head>
 <body>
     <div class="container">
-        <h1>Edit Menber</h1>
-    <form action="post_update.php?id=<?php echo $menber['id'] ?>" method="get">
+        <h1>Create Product</h1>
+    <form action="post_update.php?id=<?= $menber['id'] ?>" method="get">
     <div class="form-row">
         <div class="form-group col-md-6">
         <label>Name</label>
-        <input type="name" value="<?= $menber['name'] ?>" name="name" class="form-control" placeholder="Name">
+        <input type="text" name="name" value="<?= $menber['name'] ?>" class="form-control" placeholder="Name">
         </div>
         <div class="form-group col-md-6">
-        <label>Email</label>
-        <input type="email" value="<?= $menber['email'] ?>" name="email" class="form-control" placeholder="Email">
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-3">
-        <label>Phone</label>
-        <input type="number" value="<?= $menber['phone'] ?>" name="phone" class="form-control" placeholder="Phone">
-        </div>
-        <div class="form-group col-md-3">
-        <label>Date</label>
-        <input type="date" value="<?= $menber['date'] ?>" name="date" class="form-control" placeholder="Date">
-        </div>
-        <div class="form-group col-md-6">
-        <label>Password</label>
-        <input type="password" value="<?= $menber['password'] ?>" name="password" class="form-control" placeholder="Password">
+        <label>Price</label>
+        <input type="text" name="price" value="<?= $menber['price'] ?>" class="form-control" placeholder="Price">
         </div>
     </div>
     <div class="form-group">
-        <label >Address</label>
-        <input type="text" value="<?= $menber['address'] ?>" name="address" class="form-control" placeholder="1234 Ha Noi">
-    </div>
-    <div class="form-group">
-    <label>Role</label>
-    <select name="role" class="form-control">
-        <option <?php if($menber['role']== 1) echo "selected" ?> value="1">Male</option>
-        <option <?php if($menber['role']== 2) echo "selected" ?> value="2">Female</option>
-        <option <?php if($menber['role']== 3) echo "selected" ?> value="3">Other gender</option>
+    <label>Style</label>
+    <select name="style" class="form-control">
+        <option selected>Choose...</option>
+        <option <?php if($menber['style'] == "1"){ echo 'selected';}  ?> value="1">Hoa Hồng</option>
+        <option <?php if($menber['style'] == "2"){ echo 'selected';}  ?> value="2">Hoa Lan</option>
+        <option <?php if($menber['style'] == "3"){ echo 'selected';}  ?> value="3">Hoa Mai</option>
+        <option <?php if($menber['style'] == "4"){ echo 'selected';}  ?> value="4">Hoa Đào</option>
     </select>
     </div>
     <div class="form-group">
-    <img src="<?php echo $menber['avatar'] ?>" width="100">
-    <label>Avatar</label>
-    <input type="file" name="avatar" class="form-control">
+    <label>Description</label>
+    <textarea name="description" class="form-control" rows="4"><?= $menber['description'] ?></textarea>
+    </div>
+    <div class="form-group">
+    <label>Image</label>
+    <input name="image" type="file" class="form-control">
     </div>
     <button type="submit" class="btn btn-success">Submit</button>
     </form>

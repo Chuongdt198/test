@@ -1,18 +1,10 @@
 <?php
-// kết nối CSDL
-require_once "./../connect.php";
+session_start();
 
-// lấy ra danh sách các menber trong csdl
-$listMenberQuery = "select * from menbers";
-
-// nạp cậu sql vào kết nối
-$stmt = $connect->prepare($listMenberQuery);
-// thực thi câu lệnh
-$stmt->execute();
-
-// Lấy dữ liệu từ csdl và gán cho 1 biến
-$menberList = $stmt->fetchAll();
-
+if(!$_SESSION['AUTH']){
+    header("Location:../login/login.php");
+    die;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,42 +18,12 @@ $menberList = $stmt->fetchAll();
 </head>
 <body>
     <div class="container">
-        <a href='../login/login.php'>Logout</a>
-        <table class="table">
+        <h1>Hello: <?php echo $_SESSION['AUTH']['name'] ?></h1>
         <div class="form-group">
-        <a href="create.php" class="btn btn-success">Add Menber</a>
+        <a href="product.php" class="btn btn-primary">Product</a>
+        <a href="listuser.php" class="btn btn-success">List User</a>
+        <a href="logout.php" class="btn btn-danger">Log out</a>
         </div>
-        <thead class="thead-dark">
-            <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Birthday</th>
-            <th scope="col">Address</th>
-            <th scope="col">Role</th>
-            <th scope="col">Avatar</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($menberList as $menber): ?>
-            <tr>
-                <td><?php echo $menber['id'] ?></td>
-				<td><?php echo $menber['name'] ?></td>
-				<td><?php echo $menber['email'] ?></td>
-				<td><?php echo $menber['phone'] ?></td>
-				<td><?php echo $menber['date'] ?></td>
-				<td><?php echo $menber['address'] ?></td>
-				<td><?php echo $menber['role'] ?></td>
-				<td><?php echo $menber['avatar'] ?></td>
-                <td>
-                <a href="edit.php?id=<?php echo $menber['id'] ?>" class="btn btn-primary">Edit</a>
-                <a href="delete.php?id=<?php echo $menber['id'] ?>" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        <?php endforeach ?>
-        </tbody>
-        </table>
     </div>
 </body>
 </html>
