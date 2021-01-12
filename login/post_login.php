@@ -52,20 +52,18 @@ if($emailerr != "" || $pwderr != ""){
 
 
 
-$selectUserQuery = "select *  from users  where email = ? and password = ?";
+$selectUserQuery = "select *  from users  where email = ?";
 $stmt = $connect->prepare($selectUserQuery);
-$stmt->execute([$email, $password]);
+$stmt->execute([$email]);
 $user = $stmt->fetch();
 
-if($user === false){
+
+if($user && $user['password'] == md5($password)){
+	$_SESSION['AUTH'] = $user;
+	header("Location:../dashboard/index.php");
+}
+else{
 	header('location: login.php?msg=Sai thông tin tài khoản/mật khẩu');	
 	die;
-}
-
-$_SESSION['AUTH'] = $user;
-
-// điều hướng về trang chủ
-header('location: ../dashboard/index.php');
-
-
+}	
  ?>

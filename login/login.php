@@ -22,7 +22,6 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input id="email" type="text" class="form-control" name="email" placeholder="example@">
-                <br>
                 <?php if (isset($_GET['emailerr'])): ?>
                     <h5 style="font-size: 1em ; color: red; font-style: italic"><?php echo $_GET['emailerr'] ?></h5>
                 <?php endif ?>
@@ -30,14 +29,18 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <input id="password" type="password" class="form-control" name="password">
-                <br>
                 <?php if (isset($_GET['pwderr'])): ?>
                     <h4 style="font-size: 1em ; color: red; font-style: italic"><?php echo $_GET['pwderr'] ?></h4>
                 <?php endif ?>
             </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="clickCheck">
+                <label class="form-check-label" for="clickCheck">Remember me</label>
+            </div>
             <div class="form-group">
                 <button class="btn btn-primary">Login</button>
                 <a href="../register/register.php" class="btn btn-outline-danger">Register</a>
+                <a href="#" class="btn btn-outline-success">Fogot password</a>
             </div>
         </div>
     </form>
