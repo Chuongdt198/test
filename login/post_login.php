@@ -32,35 +32,23 @@ if($emailerr != "" || $pwderr != ""){
 	die;
 }
 
-// số lượng ký tự phải >= 6
-// if($emailerr == "" && strlen($email) < 6){
-// 	$emailerr = "Không đúng định dạng email";
-// }
-
-// // chỉ cho phép có 1 ký tự @
-// $countSpecialChar = 0;
-// for($i = 0; $i < strlen($formEmail); $i++){
-// 	if($formEmail[$i] == "@"){
-// 		$countSpecialChar ++;
-// 	}
-// }
-
-// if($emailErr == "" && $countSpecialChar != 1){
-// 	$emailErr = "Không đúng định dạng email (chỉ có 1 ký tự @)";
-// }
-
-
-
-
 $selectUserQuery = "select *  from users  where email = ?";
 $stmt = $connect->prepare($selectUserQuery);
 $stmt->execute([$email]);
 $user = $stmt->fetch();
 
 
-if($user && $user['password'] == md5($password)){
-	$_SESSION['AUTH'] = $user;
-	header("Location:../dashboard/index.php");
+
+//kiểm tra đăng nhập
+if($user && $user['password'] == md5($password)){  //nếu user đang đăng nhập đúng(có trong csdl) và pwd = pwd đã mã hóa
+	if ($user['phone'] != 1) {	//kiểm tra nếu quyền khác 1 thì về trang home
+		$_SESSION['AUTH'] = $user;
+		header("Location:../home/index.php");
+	}
+	else{
+		header("Location:../dashboard/index.php");
+
+	}
 }
 else{
 	header('location: login.php?msg=Sai thông tin tài khoản/mật khẩu');	
