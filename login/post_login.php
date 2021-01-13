@@ -38,14 +38,14 @@ $stmt->execute([$email]);
 $user = $stmt->fetch();
 
 
-
 //kiểm tra đăng nhập
 if($user && $user['password'] == md5($password)){  //nếu user đang đăng nhập đúng(có trong csdl) và pwd = pwd đã mã hóa
-	if ($user['phone'] != 1) {	//kiểm tra nếu quyền khác 1 thì về trang home
+	if ($user['role'] != 1) {	//kiểm tra nếu quyền khác 1 thì về trang home
 		$_SESSION['AUTH'] = $user;
-		header("Location:../home/index.php");
+		header("Location:../home/home.php");
 	}
 	else{
+		$_SESSION['AUTH'] = $user;
 		header("Location:../dashboard/index.php");
 
 	}
