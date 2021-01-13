@@ -45,6 +45,7 @@ $userList = $stmt->fetchAll();
             <th scope="col">Address</th>
             <th scope="col">Gender</th>
             <th scope="col">Avatar</th>
+            <th scope="col">Role</th>
             </tr>
         </thead>
         <tbody>
@@ -58,6 +59,7 @@ $userList = $stmt->fetchAll();
 				<td><?php echo $user['address'] ?></td>
 				<td><?php echo $user['gender'] ?></td>
 				<td><?php echo $user['avatar'] ?></td>
+				<td><?php echo $user['role'] ?></td>
             </tr>
         <?php endforeach ?>
         </tbody>

@@ -4,8 +4,9 @@ require_once "./../connect.php";
 
 // lấy dữ liệu ng dùng nhập vào
 
-// $id = $_GET['id'];
-// var_dump($id);
+$id = $_GET['id'];
+// var_dump(empty($id));
+// die;
 $name = $_GET['name'];
 // var_dump($name);
 // die;
@@ -16,7 +17,7 @@ $description = $_GET['description'];
 
 // lưu vào csdl
 $updateMenberQuery = "UPDATE products SET (`name`, `price`, `style`, `description`) VALUE(?, ?, ?, ?)";
-$updateMenberQuery .= " where id = $id";
+$updateMenberQuery .= "WHERE id = $id";
 
 $stmt = $connect->prepare($updateMenberQuery);
 $stmt->execute([$name, $email, $style, $description]);

@@ -5,6 +5,15 @@ if(!$_SESSION['AUTH']){
     header("Location:../login/login.php");
     die;
 }
+
+if ($user['role'] != 1) {	//check quyền phải admin k
+    header("Location:../login/login.php");
+}
+else{
+    $_SESSION['AUTH'] = $user;
+    header("Location:../dashboard/index.php");
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +31,7 @@ if(!$_SESSION['AUTH']){
         <div class="form-group">
         <a href="product.php" class="btn btn-primary">Product</a>
         <a href="listuser.php" class="btn btn-success">List User</a>
-        <a href="logout.php" class="btn btn-danger">Log out</a>
+        <a href="../login/login.php" class="btn btn-danger">Log out</a>
         </div>
     </div>
 </body>
