@@ -86,5 +86,7 @@ $user = $stmt->fetch();
 $_SESSION['AUTH'] = $user;
 
 // Thông báo đăng ký
-header("Location: ../home/index.php");
-
+echo 'đăng kí thành công';
+// header("Location: ../login/login.php");
+?>
+<a href="../login/login.php">Login</a>
