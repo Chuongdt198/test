@@ -5,14 +5,18 @@ if(!$_SESSION['AUTH']){
     header("Location:../login/login.php");
     die;
 }
+$user = $_SESSION['AUTH'];
+// require_once "./../connect.php";
+// $selectUserQuery = "select *  from users where $email = ?";
+// $stmt = $connect->prepare($selectUserQuery);
+// $stmt->execute($email);
+// $user = $stmt->fetch();
 
+// echo '<pre/>';
+// var_dump($user);
+// die;
 if ($user['role'] != 1) {	//check quyền phải admin k
-    header("Location:../login/login.php");
-}
-else{
-    $_SESSION['AUTH'] = $user;
-    header("Location:../dashboard/index.php");
-
+    header("Location:../home/home.php");
 }
 ?>
 <!DOCTYPE html>
@@ -31,7 +35,7 @@ else{
         <div class="form-group">
         <a href="product.php" class="btn btn-primary">Product</a>
         <a href="listuser.php" class="btn btn-success">List User</a>
-        <a href="../login/login.php" class="btn btn-danger">Log out</a>
+        <a href="../logout.php" class="btn btn-danger">Log out</a>
         </div>
     </div>
 </body>

@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+$user = $_SESSION['AUTH'];
+if($_SESSION['AUTH']){
+    if ($user['role'] != 1) {
+        header("Location:../home/home.php");
+    }
+    else{
+        header("Location:../dashboard/index.php");
+    }
+    die;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
